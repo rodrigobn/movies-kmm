@@ -52,14 +52,17 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.okhttp)
 
-            val koin_version = "4.1.0"
-            implementation("io.insert-koin:koin-compose:$koin_version")
-            implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
-            implementation("io.insert-koin:koin-compose-viewmodel-navigation:$koin_version")
-            implementation("io.insert-koin:koin-core:$koin_version")
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.compose.viewmodel.navigation)
 
-            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.1")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+            implementation(libs.navigation.compose)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+
+            implementation(libs.devsrsouza.compose.icons)
+            implementation(libs.ilyapavlovskii.youtube.player)
 
         }
         iosMain.dependencies {

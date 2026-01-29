@@ -2,4 +2,6 @@
     <string name="movies_list_popular_movies">Filmes populares</string>
     <string name="movies_list_top_rated_movies">Filmes mais bem avaliados</string>
     <string name="movies_list_upcoming_movies">Próximos lançamentos</string>
+    <string name="movie_detail_trailer_button">Assistir trailer</string>
+    <string name="movie_detail_title_screen">Detalhes do filme</string>
 </resources>

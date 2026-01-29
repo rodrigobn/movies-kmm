@@ -1,30 +1,30 @@
 package com.example.movies.domain.model
 
-import com.example.movies.data.network.IMAGE_SMALL_BASE_URL
-import com.example.movies.data.network.model.MovieResponse
-
 data class Movie(
-    val id: String,
+    val id: Int,
     val title: String,
+    val overview: String,
     val posterUrl: String,
-    val overview: String
+    val genres: List<Genre>?,
+    val year: Int,
+    val duration: String?,
+    val rating: String,
+    val castMembers: List<CastMember>?,
+    val movieTrailerYoutubeKey: String?
 )
-
-fun MovieResponse.toModel(): Movie {
-    return Movie(
-        id = id.toString(),
-        title = title,
-        posterUrl = "$IMAGE_SMALL_BASE_URL${this.posterPath}",
-        overview = overview
-    )
-}
 
 // fake data for testing and previews
 val sampleMovies = List(10) { index ->
     Movie(
-        id = index.toString(),
+        id = index,
         title = "Movie Title $index",
         posterUrl = "https://via.placeholder.com/150",
-        overview = "This is a brief overview of Movie Title $index."
+        overview = "This is a brief overview of Movie Title $index.",
+        genres = fakeGenres,
+        year = 2023,
+        duration = "2h 36m",
+        rating = "8.5",
+        castMembers = fakeCastMembers,
+        movieTrailerYoutubeKey = "dQw4w9WgXcQ"
     )
 }

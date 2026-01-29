@@ -18,10 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.movies.data.repository.MoviesRepository
 import com.example.movies.domain.model.MovieSection
-import com.example.movies.domain.model.sampleMovies
 import com.example.movies.ui.components.MoviesSections
 import movies.composeapp.generated.resources.Res
 import movies.composeapp.generated.resources.movies_list_popular_movies
@@ -32,15 +29,20 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MoviesListRoute(
-    viewModel: MoviesListViewModel = koinViewModel()
+    viewModel: MoviesListViewModel = koinViewModel(),
+    navigateToMovieDetail: (movieId: Int) -> Unit
 ) {
     val moviesListState by viewModel.moviesListState.collectAsStateWithLifecycle()
-    MoviesListScreen(moviesListState = moviesListState)
+    MoviesListScreen(
+        moviesListState = moviesListState,
+        onMovieClick = navigateToMovieDetail
+    )
 }
 
 @Composable
 fun MoviesListScreen(
-    moviesListState: MoviesListViewModel.MoviesListState
+    moviesListState: MoviesListViewModel.MoviesListState,
+    onMovieClick: (movieId: Int) -> Unit
 ) {
     Scaffold { paddingValues ->
         Box(
@@ -67,7 +69,9 @@ fun MoviesListScreen(
                                 MovieSection.SectionType.UPCOMING -> stringResource(Res.string.movies_list_upcoming_movies)
                             }
                             MoviesSections(
-                                title = title, movies = movieSection.movies
+                                title = title,
+                                movies = movieSection.movies,
+                                onMoviePosterClick = onMovieClick
                             )
                         }
                     }
