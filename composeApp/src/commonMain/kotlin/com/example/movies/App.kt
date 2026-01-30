@@ -1,6 +1,5 @@
 package com.example.movies
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
@@ -10,11 +9,10 @@ import com.example.movies.di.dataModule
 import com.example.movies.di.networkModule
 import com.example.movies.di.viewModelModule
 import com.example.movies.navigation.AppRoutes
+import com.example.movies.ui.moviedetail.MovieDetailRoute
 import com.example.movies.ui.movies.MoviesListRoute
 import com.example.movies.ui.theme.MoviesAppTheme
 import org.koin.compose.KoinApplication
-import org.koin.core.KoinApplication
-import org.koin.dsl.module
 
 @Composable
 @Preview
@@ -30,10 +28,20 @@ fun App() {
                 navController, startDestination = AppRoutes.MovieList
             ) {
                 composable<AppRoutes.MovieList> {
-                    MoviesListRoute()
+                    MoviesListRoute(
+                        navigateToMovieDetail = { movieId ->
+                            navController.navigate(AppRoutes.MovieDetail(movieId))
+                        }
+                    )
                 }
 
-                composable<AppRoutes.MovieDetails> {  }
+                composable<AppRoutes.MovieDetail> {
+                    MovieDetailRoute(
+                        navigateBack = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
             }
         }
     }
