@@ -62,6 +62,7 @@ import io.github.ilyapavlovskii.multiplatform.youtubeplayer.YouTubePlayer
 import io.github.ilyapavlovskii.multiplatform.youtubeplayer.YouTubePlayerHostState
 import io.github.ilyapavlovskii.multiplatform.youtubeplayer.YouTubePlayerState
 import io.github.ilyapavlovskii.multiplatform.youtubeplayer.YouTubeVideoId
+import io.ktor.client.plugins.logging.Logging
 import kotlinx.coroutines.launch
 import movies.composeapp.generated.resources.Res
 import movies.composeapp.generated.resources.movie_detail_title_screen
@@ -126,9 +127,9 @@ fun MovieDetailScreen(
         var youtubeVideoId by remember { mutableStateOf<String?>(null) }
         val coroutineScope = rememberCoroutineScope()
         val hostState = remember { YouTubePlayerHostState() }
-        when(val state = hostState.currentState) {
+        when(hostState.currentState) {
             is YouTubePlayerState.Error -> {
-                Text(text = "Error: ${state.message}")
+                // Handle error state if needed
             }
             YouTubePlayerState.Idle -> {
                 // Do nothing, waiting for initialization

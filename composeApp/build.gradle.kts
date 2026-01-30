@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,6 +6,21 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     kotlin("plugin.serialization") version "2.3.0"
+    id("com.codingfeline.buildkonfig")
+}
+val apiToken: String = providers.gradleProperty("TMDB_ACCESS_TOKEN").orNull
+    ?: error("TMDB_ACCESS_TOKEN não configurado. Veja o README.")
+
+buildkonfig {
+    packageName = "com.example.movies"
+
+    defaultConfigs {
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "TMDB_ACCESS_TOKEN",
+            apiToken
+        )
+    }
 }
 
 kotlin {
@@ -25,6 +39,12 @@ kotlin {
             isStatic = true
         }
     }
+
+    sourceSets {
+        val commonMain by getting {
+            kotlin.srcDir("build/generated/source/config")
+        }
+    }
     
     sourceSets {
         androidMain.dependencies {
@@ -32,6 +52,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+        }
+        named("commonMain") {
+            resources.srcDir("src/commonMain/resources")
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)

@@ -1,11 +1,13 @@
 package com.example.movies.data.network
 
+import com.example.movies.BuildKonfig
 import com.example.movies.data.network.model.CreditsListResponse
 import com.example.movies.data.network.model.MovieResponse
 import com.example.movies.data.network.model.MoviesListResponse
 import com.example.movies.data.network.model.VideosListResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
@@ -16,6 +18,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -39,7 +42,7 @@ class KtorClient {
             bearer {
                 loadTokens {
                     BearerTokens(
-                        accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTMyNzIwYWI2ZDcyZWEzYmM3ZjhmMmJjMGIzMzgxYiIsIm5iZiI6MTc2OTE5OTIyMy4wMDE5OTk5LCJzdWIiOiI2OTczZDY3NjlhYzdiZTY0YjBlM2Q5ZDIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.dF2ux8LB69o5qGaLjyjEyKZhy65Yo6ddZ5wJGZcqpc4",
+                        accessToken = BuildKonfig.TMDB_ACCESS_TOKEN,
                         refreshToken = ""
                     )
                 }
